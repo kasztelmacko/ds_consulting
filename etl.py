@@ -65,6 +65,13 @@ def conver_Verified(data):
     data['TripVerified'] = data['TripVerified'].map({'Trip Verified': 1, 'Not Verified': 0})
     return data
 
+def convert_Recommended(data):
+    '''
+    Function to convert Recommended column to boolean
+    '''
+    data['Recommended'] = data['Recommended'].map({'yes': 1, 'no': 0})
+    return data
+
 if __name__ == '__main__':
     data = load_data('data/AirlineReviews.csv')
     get_size(data)
@@ -73,6 +80,7 @@ if __name__ == '__main__':
     data = convert_Route(data)
     data = convert_AirlineName(data)
     data = conver_Verified(data)
+    data = convert_Recommended(data)
     '''
     Remove columns that are not needed
     unique_id: no value added
