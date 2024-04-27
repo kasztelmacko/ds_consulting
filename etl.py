@@ -91,4 +91,4 @@ if __name__ == '__main__':
     DateFlown: Reviews are usually given after few days of the flight, and DatePub has no NaN values
     '''
     data = remove_columns(data, ['unique_id', 'Route', "Slug", "Aircraft", "Title", "DateFlown"])
-    print(data.head(5))
+    data.to_csv('data/AirlineReviews_cleaned.csv', index=False)
