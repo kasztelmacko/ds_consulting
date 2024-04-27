@@ -65,14 +65,31 @@ def conver_Verified(data):
     data['TripVerified'] = data['TripVerified'].map({'Trip Verified': 1, 'Not Verified': 0})
     return data
 
+def remove_overallscore_NaN(data):
+    '''
+    Function to remove rows with NaN values in OverallScore as the goal of the project is to determine what factors/individual ratings influence overall score
+    '''
+    data = data.dropna(subset=['OverallScore'])
+    return data
+
+def convert_Recommended(data):
+    '''
+    Function to convert Recommended column to boolean
+    '''
+    data['Recommended'] = data['Recommended'].map({'yes': 1, 'no': 0})
+    return data
+
 if __name__ == '__main__':
     data = load_data('data/AirlineReviews.csv')
     get_size(data)
+    
     data = extract_month_year(data, 'DatePub')
     data = fill_Route(data)
     data = convert_Route(data)
     data = convert_AirlineName(data)
     data = conver_Verified(data)
+    data = convert_Recommended(data)
+
     '''
     Remove columns that are not needed
     unique_id: no value added
@@ -83,4 +100,5 @@ if __name__ == '__main__':
     DateFlown: Reviews are usually given after few days of the flight, and DatePub has no NaN values
     '''
     data = remove_columns(data, ['unique_id', 'Route', "Slug", "Aircraft", "Title", "DateFlown"])
+    data = remove_overallscore_NaN(data)
     print(data.head(5))
