@@ -101,4 +101,4 @@ if __name__ == '__main__':
     '''
     data = remove_columns(data, ['unique_id', 'Route', "Slug", "Aircraft", "Title", "DateFlown"])
     data = remove_overallscore_NaN(data)
-    data.to_csv('data/AirlineReviews_cleaned.csv', index=False)
+    data.to_csv('data/AirlineReviews_cleaned.csv', index=True, index_label = "row_id")
