@@ -1,4 +1,5 @@
 import pandas as pd
+pd.options.mode.chained_assignment = None  # default='warn'
 import etl
 import re
 from textblob import TextBlob
@@ -55,7 +56,7 @@ def filter_tokens(tokens):
     Returns:
         list: Filtered list of tokens.
     """
-    tokens_to_drop = ["aa", "ba", "british", "airway"]
+    tokens_to_drop = ["aa", "ab", "aacx", "ba", "british", "airway"]
     return [token for token in tokens if token.lower() not in tokens_to_drop]
 
 def create_bigram(row):
