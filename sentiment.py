@@ -1,3 +1,8 @@
+import nltk
+# download nltk if its not yet downloaded on your pc
+# when downloaded just press exit "X" button
+nltk.download()
+
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 import etl
