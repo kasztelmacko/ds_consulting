@@ -23,6 +23,14 @@ def remove_columns(data, columns):
     data = data.drop(columns=columns)
     return data
 
+def convert_Recommended(data):
+    '''
+    Function to change levels of Recommended column to Positive and Negative
+    '''
+    data['Recommended'] = data['Recommended'].apply(lambda x: 1 if x != 0 else 0)
+    data['Recommended'] = data['Recommended'].map({1: "Positive", 0: "Negative"})
+    return data
+
 def extract_month_year(data, date_column):
     '''
     Function to extract month and year from a date column, and convert it to a numeric value
@@ -72,12 +80,6 @@ def remove_overallscore_NaN(data):
     data = data.dropna(subset=['OverallScore'])
     return data
 
-def convert_Recommended(data):
-    '''
-    Function to convert Recommended column to boolean
-    '''
-    data['Recommended'] = data['Recommended'].map({'yes': 1, 'no': 0})
-    return data
 
 if __name__ == '__main__':
     data = load_data('data/AirlineReviews.csv')
