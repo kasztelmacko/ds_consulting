@@ -53,7 +53,7 @@ def fill_Route(data):
     Function to fill missing values in a Route column
     '''
     pattern = r'(\w+ to \w+|\w+-\w+|\w+ - \w+)' # pattern to extract the route
-    data['Route'] = data['Review'].str.extract(pattern, expand=False).str.replace('-', ' to ')
+    data['Route'] = data['Route'].str.extract(pattern, expand=False).str.replace('-', ' to ')
     data['Route'] = data['Route'].fillna('Unknown')
     return data
 
