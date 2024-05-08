@@ -1,5 +1,6 @@
 data/AirlineReviews.csv
 data/AirlineReviews_cleaned.csv
 data/BA_sentiments.csv
+data/
 stopwords/
 __pychache__/
