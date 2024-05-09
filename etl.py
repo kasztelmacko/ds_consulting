@@ -48,12 +48,30 @@ def convert_Route(data):
     data[['Departure', 'Arrival']] = data["Route"].str.split(' to ', expand=True)
     return data
 
+def extract_first_three_words(text):
+    '''
+    Function to extract the first three words in a sentence
+    '''
+    words = re.split(r'\s|-', text)  # Split by whitespace and hyphens
+    if len(words) >= 3:
+        return ' '.join(words[:3]) + '.'  # Add back the period to the first three words
+    else:
+        return text
+
+def create_first_three_words_review(data):
+    '''
+    Function to generate the first three words of review column for further processing.
+    '''
+    data['First_Three_Words_Review'] = data['Review'].astype(str).apply(extract_first_three_words)
+    return data
+
+
 def fill_Route(data):
     '''
     Function to fill missing values in a Route column
     '''
     pattern = r'(\w+ to \w+|\w+-\w+|\w+ - \w+)' # pattern to extract the route
-    data['Route'] = data['Route'].str.extract(pattern, expand=False).str.replace('-', ' to ')
+    data['Route'] = data['First_Three_Words_Review'].str.extract(pattern, expand=False).str.replace('-', ' to ')
     data['Route'] = data['Route'].fillna('Unknown')
     return data
 
@@ -86,6 +104,7 @@ if __name__ == '__main__':
     get_size(data)
     
     data = extract_month_year(data, 'DatePub')
+    data = create_first_three_words_review(data)
     data = fill_Route(data)
     data = convert_Route(data)
     data = convert_AirlineName(data)
