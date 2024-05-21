@@ -27,7 +27,7 @@ def convert_Recommended(data):
     '''
     Function to change levels of Recommended column to Positive and Negative
     '''
-    data['Recommended'] = data['Recommended'].apply(lambda x: 1 if x != 0 else 0)
+    data['Recommended'] = data['Recommended'].apply(lambda x: 1 if x != "no" else 0)
     data['Recommended'] = data['Recommended'].map({1: "Positive", 0: "Negative"})
     return data
 
